@@ -1,0 +1,75 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger: none
+pr: none
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+ tfWorkingDir: terraform
+stages:
+  - stage: validate
+    displayName: terraform-validate
+    jobs:
+      - job: validate
+        steps:
+          - checkout: self
+          - task: TerraformInstaller@1
+            inputs: 
+             terraformVersion: 'latest'
+          - task: AzureCLI@3
+            inputs:
+              connectionType: 'azureRM'
+              azureSubscription: 'az-resource'
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                ls -ltr
+                cd $(tfWorkingDir)
+                terraform fmt -check
+                terraform validate
+  - stage: plan
+    displayName: terraform-plan
+    dependsOn: validate
+    jobs:
+      - job: plan
+        steps:
+          - checkout: self
+          - task: TerraformInstaller@1
+            inputs:
+             terraformVersion: 'latest'
+           
+          - task: AzureCLI@3
+            inputs:
+              connectionType: 'azureRM'
+              azureSubscription: 'az-resource'
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                cd $(tfWorkingDir)
+                terraform init
+                terraform plan --var-file="dev.tfvars" -out=tfplan
+  - stage: apply
+    displayName: terraform-apply
+    dependsOn: plan
+    jobs:
+      - job: apply
+        steps:
+          - checkout: self
+          - task: TerraformInstaller@1
+            inputs:
+             terraformVersion: 'latest'   
+          - task: AzureCLI@3
+            inputs:
+              connectionType: 'azureRM'
+              azureSubscription: 'az-resource'
+              scriptType: 'bash'
+              scriptLocation: 'inlineScript'
+              inlineScript: |
+                cd $(tfWorkingDir)
+                terraform init
+                terraform apply --var-file="dev.tfvars" -auto-approve=yes
