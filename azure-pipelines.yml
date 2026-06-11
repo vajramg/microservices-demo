@@ -10,7 +10,7 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
- tfWorkingDir: terraform
+  tfWorkingDir: terraform
 stages:
   - stage: validate
     displayName: terraform-validate
@@ -19,17 +19,18 @@ stages:
         steps:
           - checkout: self
           - task: TerraformInstaller@1
-            inputs: 
-             terraformVersion: 'latest'
+            inputs:
+              terraformVersion: "latest"
           - task: AzureCLI@3
             inputs:
-              connectionType: 'azureRM'
-              azureSubscription: 'az-resource'
-              scriptType: 'bash'
-              scriptLocation: 'inlineScript'
+              connectionType: "azureRM"
+              azureSubscription: "az-resource"
+              scriptType: "bash"
+              scriptLocation: "inlineScript"
               inlineScript: |
                 ls -ltr
                 cd $(tfWorkingDir)
+                terraform init
                 terraform fmt -check
                 terraform validate
   - stage: plan
@@ -41,14 +42,14 @@ stages:
           - checkout: self
           - task: TerraformInstaller@1
             inputs:
-             terraformVersion: 'latest'
-           
+              terraformVersion: "latest"
+
           - task: AzureCLI@3
             inputs:
-              connectionType: 'azureRM'
-              azureSubscription: 'az-resource'
-              scriptType: 'bash'
-              scriptLocation: 'inlineScript'
+              connectionType: "azureRM"
+              azureSubscription: "az-resource"
+              scriptType: "bash"
+              scriptLocation: "inlineScript"
               inlineScript: |
                 cd $(tfWorkingDir)
                 terraform init
@@ -62,13 +63,13 @@ stages:
           - checkout: self
           - task: TerraformInstaller@1
             inputs:
-             terraformVersion: 'latest'   
+              terraformVersion: "latest"
           - task: AzureCLI@3
             inputs:
-              connectionType: 'azureRM'
-              azureSubscription: 'az-resource'
-              scriptType: 'bash'
-              scriptLocation: 'inlineScript'
+              connectionType: "azureRM"
+              azureSubscription: "az-resource"
+              scriptType: "bash"
+              scriptLocation: "inlineScript"
               inlineScript: |
                 cd $(tfWorkingDir)
                 terraform init
