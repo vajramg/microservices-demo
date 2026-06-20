@@ -2,7 +2,7 @@ parameters:
     - name: servicename
       type: string
 
-      variables:
+variables:
         acr: vg1988acr.azurecr.io
       
 jobs:
