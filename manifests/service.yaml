@@ -1,0 +1,14 @@
+apiVersion: apps/v1
+kind: service
+metadata:
+  name: adservice-service
+  labels:
+    app: adservice
+spec:
+  selector:
+    app: adservice
+  ports:
+    - protocol: TCP
+      port: 9555
+      targetPort: 9555
+  type: ClusterIP
