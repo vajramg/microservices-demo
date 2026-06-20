@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: service
 metadata:
-  name: adservice-service
+  name: adservice
   labels:
     app: adservice
 spec:
