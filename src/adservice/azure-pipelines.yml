@@ -9,13 +9,13 @@ stages:
   - stage: build
     displayName: Build
     jobs:
-      - template: ../../pipelines/build-template.yml
+      - template: ../../pipelines/build-template.yaml
         parameters:
           servicename: adservice
   - stage: deploy
     displayName: Deploy
     jobs:
-      - template: ../../pipeline/deploy-template.yml
+      - template: ../../pipeline/deploy-template.yaml
         parameters:
           servicename: adservice
           acr: $(acr)
