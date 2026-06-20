@@ -1,5 +1,5 @@
 parameters:
-    - name: servicename
+    - name: serviceName
       type: string
 
     - name: acr
@@ -18,13 +18,10 @@ jobs:
            scriptType: 'bash'
            scriptLocation: 'inlineScript'
            inlineScript: |
-           az acr login --name ${{ parameters.acr }}
+            az acr login --name ${{ parameters.acr }}
 
             docker build \
-
             -t ${{ parameters.acr }}.azurecr.io/${{ parameters.serviceName }}:$(Build.BuildId) \
-
             ./src/${{ parameters.serviceName }}
-
             docker push \
             ${{ parameters.acr }}.azurecr.io/${{ parameters.serviceName }}:$(Build.BuildId)
