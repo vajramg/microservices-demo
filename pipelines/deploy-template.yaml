@@ -1,5 +1,5 @@
 parameters:
-    - name: servicename
+    - name: serviceName
       type: string
     - name: acr
       type: string
@@ -18,7 +18,7 @@ jobs:
            kubernetesCluster: 'my-aks1988'
            namespace: 'default'
            manifests: |
-           src/${{ parameters.servicename }}/manifests/deployment.yaml
-           src/${{ parameters.servicename }}/manifests/service.yaml 
+           src/${{ parameters.serviceName }}/manifests/deployment.yaml
+           src/${{ parameters.serviceName }}/manifests/service.yaml 
            containers: 
              ${{ parameters.acr }}.azurecr.io/${{ parameters.serviceName }}:$(Build.BuildId)
