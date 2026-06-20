@@ -3,8 +3,6 @@
 When you're ready, start your application by running:
 `docker compose up --build`.
 
-Your application will be available at http://localhost:9555.
-
 ### Deploying your application to the cloud
 
 First, build your image, e.g.: `docker build -t myapp .`.
