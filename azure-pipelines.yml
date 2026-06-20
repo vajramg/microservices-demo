@@ -73,4 +73,4 @@ stages:
               inlineScript: |
                 cd $(tfWorkingDir)
                 terraform init
-                terraform apply --var-file="dev.tfvars" -auto-approve=yes
+                terraform destroy --var-file="dev.tfvars" -auto-approve=yes
