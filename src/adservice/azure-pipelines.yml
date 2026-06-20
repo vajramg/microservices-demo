@@ -1,0 +1,17 @@
+trigger:
+  branches:
+    include:
+      - orderservice/**
+stages:
+  - stage: build
+    displayName: Build
+    jobs:
+      - template: ../pipelines/build-template.yml
+        parameters:
+          servicename: adservice
+  - stage: deploy
+    displayName: Deploy
+    jobs:
+      - template: ../pipeline/deploy-template.yml
+        parameters:
+          servicename: adservice

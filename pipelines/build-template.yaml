@@ -1,0 +1,25 @@
+parameters:
+    - name: servicename
+      type: string
+      
+jobs:
+    - job: build
+      displayName: Build
+      steps:
+       - task: AzureCLI@3
+         inputs:
+           connectionType: 'azureRM'
+           azureSubscription: 'az-resource'
+           scriptType: 'bash'
+           scriptLocation: 'inlineScript'
+           inlineScript: |
+           az acr login --name vg1988myacr 
+
+            docker build \
+
+            -t vg1988myacr.azurecr.io/${{ parameters.serviceName }}:$(Build.BuildId) \
+
+            ./${{ parameters.serviceName }}
+
+            docker push \
+            vg1988myacr.azurecr.io/${{ parameters.serviceName }}:$(Build.BuildId)
