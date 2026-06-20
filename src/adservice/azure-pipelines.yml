@@ -1,17 +1,21 @@
 trigger:
   branches:
     include:
-      - orderservice/**
+      - src/adservice/**
+
+variables:
+  acr: vg1988myacr
 stages:
   - stage: build
     displayName: Build
     jobs:
-      - template: ../pipelines/build-template.yml
+      - template: ../../pipelines/build-template.yml
         parameters:
           servicename: adservice
   - stage: deploy
     displayName: Deploy
     jobs:
-      - template: ../pipeline/deploy-template.yml
+      - template: ../../pipeline/deploy-template.yml
         parameters:
           servicename: adservice
+          acr: $(acr)

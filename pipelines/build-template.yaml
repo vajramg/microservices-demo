@@ -1,6 +1,9 @@
 parameters:
     - name: servicename
       type: string
+
+      variables:
+        acr: vg1988myacr.azurecr.io
       
 jobs:
     - job: build
@@ -17,9 +20,9 @@ jobs:
 
             docker build \
 
-            -t vg1988myacr.azurecr.io/${{ parameters.serviceName }}:$(Build.BuildId) \
+            -t ${{ variables.acr }}/${{ parameters.serviceName }}:$(Build.BuildId) \
 
-            ./${{ parameters.serviceName }}
+            ./src/${{ parameters.serviceName }}
 
             docker push \
-            vg1988myacr.azurecr.io/${{ parameters.serviceName }}:$(Build.BuildId)
+            ${{ variables.acr }}/${{ parameters.serviceName }}:$(Build.BuildId)

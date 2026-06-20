@@ -1,6 +1,9 @@
 parameters:
     - name: servicename
       type: string
+
+  variables:
+    acr: vg1988myacr.azurecr.io
 jobs:
     - job: build
       displayName: Build
@@ -14,7 +17,7 @@ jobs:
            kubernetesCluster: 'my-aks1988'
            namespace: 'default'
            manifests: |
-           ${{ parameters.servicename }}/manifests/deployment.yaml 
-           ${{ parameters.servicename }}/manifests/service.yaml 
+           src/${{ parameters.servicename }}/manifests/deployment.yaml 
+           src/${{ parameters.servicename }}/manifests/service.yaml 
            containers: 
-             vg1988myacr.azurecr.io/${{ parameters.serviceName }}:$(Build.BuildId)
+             ${{ variables.acr }}/${{ parameters.serviceName }}:$(Build.BuildId)
