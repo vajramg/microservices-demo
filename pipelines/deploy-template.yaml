@@ -1,11 +1,15 @@
 parameters:
     - name: servicename
       type: string
+    - name: acr
+      type: string
 
 variables:
     acr: vg1988acr.azurecr.io
 jobs:
     - job: build
+      pool:
+        vmImage: 'ubuntu-latest'
       displayName: Build
       steps:
        - task: KubernetesManifest@1
@@ -20,4 +24,4 @@ jobs:
            src/${{ parameters.servicename }}/manifests/deployment.yaml 
            src/${{ parameters.servicename }}/manifests/service.yaml 
            containers: 
-             ${{ variables.acr }}/${{ parameters.serviceName }}:$(Build.BuildId)
+             ${{ parameters.acr }}.azurecr.io/${{ parameters.serviceName }}:$(Build.BuildId)

@@ -2,11 +2,13 @@ parameters:
     - name: servicename
       type: string
 
-variables:
-        acr: vg1988acr.azurecr.io
+    - name: acr
+      type: string
       
 jobs:
     - job: build
+      pool:
+        vmImage: 'ubuntu-latest'
       displayName: Build
       steps:
        - task: AzureCLI@3
@@ -20,9 +22,9 @@ jobs:
 
             docker build \
 
-            -t ${{ variables.acr }}/${{ parameters.serviceName }}:$(Build.BuildId) \
+            -t ${{ parameters.acr }}.azurecr.io/${{ parameters.serviceName }}:$(Build.BuildId) \
 
             ./src/${{ parameters.serviceName }}
 
             docker push \
-            ${{ variables.acr }}/${{ parameters.serviceName }}:$(Build.BuildId)
+            ${{ parameters.acr }}.azurecr.io/${{ parameters.serviceName }}:$(Build.BuildId)
