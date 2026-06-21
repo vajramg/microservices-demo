@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: adservice
-          image: vg1988acr.azurecr.io/vajramgmicroservicesdemo:21
+          image: 
           ports:
             - containerPort: 9555
           resources:

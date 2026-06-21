@@ -4,10 +4,10 @@ parameters:
     - name: acr
       type: string
 jobs:
-    - job: build
+    - job: deploy
       pool:
         vmImage: 'ubuntu-latest'
-      displayName: Build
+      displayName: Deploy
       steps:
        - task: KubernetesManifest@1
          inputs:
