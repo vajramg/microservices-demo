@@ -11,12 +11,12 @@ stages:
     jobs:
       - template: ../../pipelines/build-template.yaml
         parameters:
-          servicename: adservice
+          serviceName: adservice
           acr: $(acr)
   - stage: deploy
     displayName: Deploy
     jobs:
       - template: ../../pipelines/deploy-template.yaml
         parameters:
-          servicename: adservice
+          serviceName: adservice
           acr: $(acr)
