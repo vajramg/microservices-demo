@@ -1,0 +1,21 @@
+trigger:
+  branches:
+    include:
+      - src/cartservice/**
+variables:
+  acr: vg1988acr
+stages:
+  - stage: build
+    displayName: Build
+    jobs:
+      - template: ../../pipelines/build-template.yaml
+        parameters:
+          serviceName: carservive
+          acr: vg1988acr
+  - stage: deploy
+    displayName: Build
+    jobs:
+      - template: ../../pipelines/deploy-template.yaml
+        parameters:
+          serviceName: cartservice
+          acr: vg1988acr
