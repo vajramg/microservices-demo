@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: cartservice
-          image: vg1988acr.azurecr.io/cartservice:latest
+          image: vg1988acr.azurecr.io/cartservice:43
           ports:
             - containerPort: 7070
           resources:
@@ -25,4 +25,4 @@ spec:
               cpu: "500m"
             requests:
               memory: "64Mi"
-              cpu: "150m"
+              cpu: "50m"
