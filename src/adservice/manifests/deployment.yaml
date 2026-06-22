@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: adservice
-          image: vg1988acr.azurecr.io/adservice:latest
+          image: vg1988acr.azurecr.io/adservice:45
           ports:
             - containerPort: 9555
           resources:
