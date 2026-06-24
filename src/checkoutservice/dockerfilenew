@@ -1,0 +1,22 @@
+ARG BUILDPLATFORM =linux/amd64
+FROM --platform=$BUILDPLATFORM golang:1.26-alpine AS builder
+WORKDIR /src
+COPY go.mod go.sum
+RUN go mod download
+COPY . .
+ARG TARGETOS=linux
+ARG TARGETARCH=amd64
+ARG SKAFFOLD_GO_FLAGS
+RUN GOOS=${TARGETOS} GOARCH=${TARGETARCH} CGO_ENABLED=0 go build -ldflags="-s -w" -gcflags="${SKAFFOLD_GO_GCFLAGS}" -o /checkoutservice .
+
+FROM gcr.io/distroless/static
+
+WORKDIR /src
+
+COPY --from=builder /checkoutservice /src/checkoutservice 
+
+ENV GOTRACEBACK=single
+
+EXPOSE 5500
+
+ENTRYPOINT [ "/src/checkoutservice" ]
