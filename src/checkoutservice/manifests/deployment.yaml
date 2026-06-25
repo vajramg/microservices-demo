@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: checkout
-        image: vg1988acr.azure.io/checkoutservice:45
+        image: vg1988acr.azurecr.io/checkoutservice:45
         ports:
         - containerPort: 5050
         resources:

@@ -11,11 +11,11 @@ stages:
       - template: ../../pipelines/build-template.yaml
         parameters:
           serviceName: checkoutservice
-          acr: vg1988acr
+          acr: $(acr)
   - stage: deploy
-    displayName: Build
+    displayName: Deploy
     jobs:
       - template: ../../pipelines/deploy-template.yaml
         parameters:
           serviceName: checkoutservice
-          acr: vg1988acr
+          acr: $(acr)
