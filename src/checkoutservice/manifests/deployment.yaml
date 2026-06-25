@@ -27,5 +27,5 @@ spec:
             memory: "128Mi"
             cpu: "500m"
         env:
-        - name: shipping
+        - name: SHIPPING_SERVICE_ADDR
           value: "shippingservice:50051"
