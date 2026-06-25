@@ -5,7 +5,9 @@ COPY package*.json ./
 RUN npm ci --only=production
 COPY . .
 RUN npm run build
-FROM --platform=${BUILDPLATFORM } node:2
+FROM --platform=${BUILDPLATFORM } node:20-alpine
+COPY --from=builder
+
 
 
 

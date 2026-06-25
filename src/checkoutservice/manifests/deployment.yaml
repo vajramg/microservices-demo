@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: checkout
-        image: vg1988acr.azurecr.io/checkoutservice:45
+        image: vg1988acr.azurecr.io/checkoutservice:70
         ports:
         - containerPort: 5050
         resources:
@@ -26,3 +26,6 @@ spec:
           limits:
             memory: "128Mi"
             cpu: "500m"
+        env:
+        - name: shipping
+          value: "shippingservice:50051"
