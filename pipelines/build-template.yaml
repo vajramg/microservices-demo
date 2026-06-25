@@ -19,14 +19,9 @@ jobs:
            scriptLocation: 'inlineScript'
            inlineScript: |
             az acr login --name ${{ parameters.acr }}
-            pwd
-
-            ls -R src/cartservice
-
-            displayName: Debug Cartservice Structure
 
             docker build \
             -t ${{ parameters.acr }}.azurecr.io/${{ parameters.serviceName }}:$(Build.BuildId) \
-            ./src/${{ parameters.serviceName }}
+            ./${{ parameters.serviceName }}
             docker push \
             ${{ parameters.acr }}.azurecr.io/${{ parameters.serviceName }}:$(Build.BuildId)
