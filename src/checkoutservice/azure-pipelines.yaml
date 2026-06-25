@@ -17,5 +17,5 @@ stages:
     jobs:
       - template: ../../pipelines/deploy-template.yaml
         parameters:
-          serviceName: checkout
+          serviceName: checkoutservice
           acr: vg1988acr
