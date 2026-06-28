@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: currencyservice-deployment
+  labels:
+    app: currency
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: currency
+  template:
+    metadata:
+      labels:
+        app: currency
+    spec:
+      containers:
+      - name: currency
+        image: vg1988acr.azurecr.io/currencyservice:70
+        ports:
+        - containerPort: 7000
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+      

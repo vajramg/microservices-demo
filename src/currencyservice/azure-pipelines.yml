@@ -14,13 +14,13 @@ stages:
     jobs:
       - template: ../../pipelines/build-template.yaml
         parameters:
-          serviceName: checkoutservice
+          serviceName: currentservice
           acr: $(acr)
   - stage: deploy
     displayName: Deploy
     jobs:
       - template: ../../pipelines/deploy-template.yaml
         parameters:
-          serviceName: checkoutservice
+          serviceName: currentservice
           acr: $(acr)
           environmentName: DEV
