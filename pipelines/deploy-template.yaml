@@ -24,7 +24,7 @@ jobs:
             kubernetesCluster: 'my-aks1988'
             namespace: $(namespace)
             manifests: |
-            src/${{ parameters.serviceName }}/manifests/deployment.yaml
-            src/${{ parameters.serviceName }}/manifests/service.yaml 
+             src/${{ parameters.serviceName }}/manifests/deployment.yaml
+             src/${{ parameters.serviceName }}/manifests/service.yaml 
             containers: |
-            ${{ parameters.acr }}.azurecr.io/${{ parameters.serviceName }}:$(Build.BuildId)
+             ${{ parameters.acr }}.azurecr.io/${{ parameters.serviceName }}:$(Build.BuildId)
