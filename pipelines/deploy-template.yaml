@@ -10,7 +10,7 @@ jobs:
   displayName: 'Deploy to AKS'
   environment: ${{parameters.environmentName}}
   pool:
-    vm-image: 'ubuntu-latest'
+    vmImage: 'ubuntu-latest'
   strategy:
        runOnce:
         deploy:
