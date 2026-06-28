@@ -13,10 +13,10 @@ jobs:
     vm-image: 'ubuntu-latest'
   strategy:
        runOnce:
-         deploy:
-          steps:
-          - task: KubernetesManifest@1
-            inputs:
+        deploy:
+         steps:
+         - task: KubernetesManifest@1
+           inputs:
             action: 'deploy'
             connectionType: 'azureResourceManager'
             azureSubscriptionConnection: 'az-resource'
@@ -27,4 +27,4 @@ jobs:
             src/${{ parameters.serviceName }}/manifests/deployment.yaml
             src/${{ parameters.serviceName }}/manifests/service.yaml 
             containers: |
-             ${{ parameters.acr }}.azurecr.io/${{ parameters.serviceName }}:$(Build.BuildId)
+            ${{ parameters.acr }}.azurecr.io/${{ parameters.serviceName }}:$(Build.BuildId)
