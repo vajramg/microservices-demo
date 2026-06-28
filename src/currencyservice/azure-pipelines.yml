@@ -1,0 +1,26 @@
+trigger:
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - src/currencyservice/**
+
+variables:
+  - group: common-dev
+stages:
+  - stage: build
+    displayName: Build
+    jobs:
+      - template: ../../pipelines/build-template.yaml
+        parameters:
+          serviceName: checkoutservice
+          acr: $(acr)
+  - stage: deploy
+    displayName: Deploy
+    jobs:
+      - template: ../../pipelines/deploy-template.yaml
+        parameters:
+          serviceName: checkoutservice
+          acr: $(acr)
+          environmentName: DEV
