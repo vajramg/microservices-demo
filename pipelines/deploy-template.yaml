@@ -15,6 +15,12 @@ jobs:
        runOnce:
         deploy:
          steps:
+         - scripts: |
+            echo "Current directory:"
+            pwd
+            echo "Repository structure:"
+            ls -R
+           displayName: "Debug Repository"
          - task: KubernetesManifest@1
            inputs:
             action: 'deploy'
