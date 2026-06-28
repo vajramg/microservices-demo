@@ -15,7 +15,7 @@ jobs:
        runOnce:
         deploy:
          steps:
-         - scripts: |
+         - script: |
             echo "Current directory:"
             pwd
             echo "Repository structure:"
