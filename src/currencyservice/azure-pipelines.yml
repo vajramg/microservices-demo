@@ -7,7 +7,7 @@ trigger:
       - src/currencyservice/**
 
 variables:
-  - group: common-dev
+  - group: common-qa
 stages:
   - stage: build
     displayName: Build
@@ -23,4 +23,4 @@ stages:
         parameters:
           serviceName: currencyservice
           acr: $(acr)
-          environmentName: DEV
+          environmentName: QA
