@@ -17,7 +17,6 @@ stages:
           serviceName: currencyservice
   - stage: deploydev
     displayName: Deploy-DEV
-    dependsOn: build
     variables:
       - group: common-dev
       - group: common-shared
@@ -28,7 +27,6 @@ stages:
           environmentName: DEV
   - stage: deployqa
     displayName: Deploy-QA
-    dependsOn: deploydev
     variables:
       - group: common-qa
       - group: common-shared
@@ -39,7 +37,6 @@ stages:
           environmentName: QA
   - stage: deployprod
     displayName: Deploy-PROD
-    dependsOn: deployqa
     variables:
       - group: common-prod
     jobs:
