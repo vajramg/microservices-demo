@@ -29,3 +29,5 @@ spec:
           env:
             - name: DISABLE_PROFILER
               value: "1"
+            - name: PORT
+              value: "7000"
