@@ -15,7 +15,7 @@ stages:
       - template: ../../pipelines/build-template.yaml
         parameters:
           serviceName: currencyservice
-  - stage: deploy-dev
+  - stage: deploydev
     displayName: Deploy-DEV
     dependsOn: build
     variables:
@@ -26,7 +26,7 @@ stages:
         parameters:
           serviceName: currencyservice
           environmentName: DEV
-  - stage: deploy-qa
+  - stage: deployqa
     displayName: Deploy-QA
     dependsOn: deploy-dev
     variables:
@@ -37,7 +37,7 @@ stages:
         parameters:
           serviceName: currencyservice
           environmentName: QA
-  - stage: deploy-prod
+  - stage: deployprod
     displayName: Deploy-PROD
     dependsOn: deploy-qa
     variables:
