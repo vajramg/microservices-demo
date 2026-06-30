@@ -6,21 +6,46 @@ trigger:
     include:
       - src/currencyservice/**
 
-variables:
-  - group: common-qa
 stages:
   - stage: build
     displayName: Build
+    variables:
+      - group: common-dev
     jobs:
       - template: ../../pipelines/build-template.yaml
         parameters:
           serviceName: currencyservice
           acr: $(acr)
-  - stage: deploy
-    displayName: Deploy
+  - stage: deploy-dev
+    displayName: Deploy-DEV
+    dependsOn: build
+    variables:
+      - group: common-dev
+    jobs:
+      - template: ../../pipelines/deploy-template.yaml
+        parameters:
+          serviceName: currencyservice
+          acr: $(acr)
+          environmentName: DEV
+  - stage: deploy-qa
+    displayName: Deploy-QA
+    dependsOn: deploy-dev
+    variables:
+      - group: common-qa
     jobs:
       - template: ../../pipelines/deploy-template.yaml
         parameters:
           serviceName: currencyservice
           acr: $(acr)
           environmentName: QA
+  - stage: deploy-prod
+    displayName: Deploy-PROD
+    dependsOn: deploy-qa
+    variables:
+      - group: common-prod
+    jobs:
+      - template: ../../pipelines/deploy-template.yaml
+        parameters:
+          serviceName: currencyservice
+          acr: $(acr)
+          environmentName: PROD

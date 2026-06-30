@@ -1,29 +1,28 @@
 parameters:
     - name: serviceName
       type: string
-
-    - name: acr
-      type: string
       
 jobs:
     - job: build
       pool:
         vmImage: 'ubuntu-latest'
       displayName: Build
+      variables:
+      - group: common-shared
       steps:
        - task: AzureCLI@3
          inputs:
            connectionType: 'azureRM'
-           azureSubscription: 'az-resource'
+           azureSubscription: $(azureSubscription)
            scriptType: 'bash'
            scriptLocation: 'inlineScript'
            inlineScript: |
-            az acr login --name ${{ parameters.acr }}
+            az acr login --name $(acr)
 
             pwd
             ls -ltr
             docker build \
-            -t ${{ parameters.acr }}.azurecr.io/${{ parameters.serviceName }}:$(Build.BuildId) \
+            -t $(acr).azurecr.io/${{ parameters.serviceName }}:$(Build.BuildId) \
             src/${{ parameters.serviceName }}
             docker push \
-            ${{ parameters.acr }}.azurecr.io/${{ parameters.serviceName }}:$(Build.BuildId)
+            $(acr).azurecr.io/${{ parameters.serviceName }}:$(Build.BuildId)

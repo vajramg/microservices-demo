@@ -1,14 +1,14 @@
 parameters:
     - name: serviceName
       type: string
-    - name: acr
-      type: string
     - name: environmentName
       type: string
 jobs:
 - deployment: deploy
   displayName: 'Deploy to AKS'
   environment: ${{parameters.environmentName}}
+  variables:
+  - group: common-shared
   pool:
     vmImage: 'ubuntu-latest'
   strategy:
@@ -26,12 +26,12 @@ jobs:
            inputs:
             action: 'deploy'
             connectionType: 'azureResourceManager'
-            azureSubscriptionConnection: 'az-resource'
-            azureResourceGroup: 'aks-rg'
-            kubernetesCluster: 'my-aks1988'
+            azureSubscriptionConnection: $(azureSubscriptionConnection)
+            azureResourceGroup: $(azureResourceGroup)
+            kubernetesCluster: $(kubernetesCluster)
             namespace: $(namespace)
             manifests: |
              src/${{ parameters.serviceName }}/manifests/deployment.yaml
              src/${{ parameters.serviceName }}/manifests/service.yaml 
             containers: |
-             ${{ parameters.acr }}.azurecr.io/${{ parameters.serviceName }}:$(Build.BuildId)
+             $(acr).azurecr.io/${{ parameters.serviceName }}:$(Build.BuildId)
