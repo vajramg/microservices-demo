@@ -28,7 +28,7 @@ stages:
           environmentName: DEV
   - stage: deployqa
     displayName: Deploy-QA
-    dependsOn: deploy-dev
+    dependsOn: deploydev
     variables:
       - group: common-qa
       - group: common-shared
@@ -39,7 +39,7 @@ stages:
           environmentName: QA
   - stage: deployprod
     displayName: Deploy-PROD
-    dependsOn: deploy-qa
+    dependsOn: deployqa
     variables:
       - group: common-prod
     jobs:
