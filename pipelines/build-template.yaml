@@ -13,7 +13,7 @@ jobs:
        - task: AzureCLI@3
          inputs:
            connectionType: 'azureRM'
-           azureSubscription: $(azureSubscription)
+           azureSubscription: 'az-resource'
            scriptType: 'bash'
            scriptLocation: 'inlineScript'
            inlineScript: |
