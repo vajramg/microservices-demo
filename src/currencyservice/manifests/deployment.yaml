@@ -15,15 +15,17 @@ spec:
         app: currency
     spec:
       containers:
-      - name: currency
-        image: vg1988acr.azurecr.io/currencyservice:70
-        ports:
-        - containerPort: 7000
-        resources:
-          requests:
-            memory: "64Mi"
-            cpu: "250m"
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
-      
+        - name: currency
+          image: vg1988acr.azurecr.io/currencyservice:70
+          ports:
+            - containerPort: 7000
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          env:
+            - name: DISABLE_PROFILER
+              value: "1"

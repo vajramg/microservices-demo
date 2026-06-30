@@ -29,10 +29,12 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 RUN npm install --only=production
+RUN node -v
+RUN npm -v
+RUN ls -R node_modules/pprof || true
+RUN find node_modules -name "pprof.node"
 
-FROM node:20.20.2-alpine
-
-RUN apk add --no-cache nodejs
+FROM node:20-bookworm
 
 WORKDIR /usr/src/app
 
