@@ -42,7 +42,7 @@ COPY --from=builder /usr/src/app/node_modules ./node_modules
 
 COPY . .
 
-#Changes added
+#Changes added testing for pipeline
 
 EXPOSE 7000
 
