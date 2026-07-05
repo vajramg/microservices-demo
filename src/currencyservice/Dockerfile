@@ -24,7 +24,7 @@ RUN apk add --update --no-cache \
   make \
   g++
 
-#added this to check pipeline trigger
+#added this to check pipeline trigger for checking
 WORKDIR /usr/src/app
 
 COPY package*.json ./
