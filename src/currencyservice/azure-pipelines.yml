@@ -1,7 +1,7 @@
 trigger:
   branches:
     include:
-      - main
+      - features
   paths:
     include:
       - src/currencyservice/**
