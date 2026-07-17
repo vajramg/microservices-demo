@@ -52,6 +52,7 @@ stages:
               scriptLocation: "inlineScript"
               inlineScript: |
                 cd $(tfWorkingDir)
+                terraform init --backend-config="backend/dev.backend"
                 terraform plan --var-file="dev.tfvars" -out=tfplan
   - stage: apply
     displayName: terraform-apply
