@@ -30,7 +30,7 @@ stages:
               inlineScript: |
                 ls -ltr
                 cd $(tfWorkingDir)
-                terraform init
+                terraform init --backend-config="backend/dev.backend"
                 terraform fmt -check
                 terraform validate
   - stage: plan
