@@ -30,7 +30,7 @@ stages:
               inlineScript: |
                 ls -ltr
                 cd $(tfWorkingDir)
-                terraform init
+                terraform init --backend-config="backend/dev.backend"
                 terraform fmt -check
                 terraform validate
   - stage: plan
@@ -52,7 +52,7 @@ stages:
               scriptLocation: "inlineScript"
               inlineScript: |
                 cd $(tfWorkingDir)
-                terraform init
+                terraform init --backend-config="backend/dev.backend"
                 terraform plan --var-file="dev.tfvars" -out=tfplan
   - stage: apply
     displayName: terraform-apply
@@ -72,5 +72,5 @@ stages:
               scriptLocation: "inlineScript"
               inlineScript: |
                 cd $(tfWorkingDir)
-                terraform init
+                terraform init --backend-config="backend/dev.backend"
                 terraform destroy --var-file="dev.tfvars" -auto-approve
