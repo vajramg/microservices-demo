@@ -72,4 +72,5 @@ stages:
               scriptLocation: "inlineScript"
               inlineScript: |
                 cd $(tfWorkingDir)
+                terraform init --backend-config="backend/dev.backend"
                 terraform apply --var-file="dev.tfvars" -auto-approve
