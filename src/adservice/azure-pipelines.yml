@@ -1,6 +1,10 @@
 trigger:
   branches:
     include:
+      - main # or develop, feature/*
+
+  paths:
+    include:
       - src/adservice/**
 
 variables:
@@ -12,9 +16,11 @@ stages:
       - template: ../../pipelines/build-template.yaml
         parameters:
           serviceName: adservice
+          acr: $(acr)
   - stage: deploy
     displayName: Deploy
     jobs:
       - template: ../../pipelines/deploy-template.yaml
         parameters:
           serviceName: adservice
+          environmentName: DEV
