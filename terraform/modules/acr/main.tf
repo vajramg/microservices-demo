@@ -1,6 +1,6 @@
 
 resource "azurerm_container_registry" "acr" {
-  name                = "vg1988acrmy"
+  name                = "acrvg1988"
   resource_group_name = var.resource_group_name
   location            = var.location
   sku                 = "Basic"
