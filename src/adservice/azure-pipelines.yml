@@ -12,11 +12,9 @@ stages:
       - template: ../../pipelines/build-template.yaml
         parameters:
           serviceName: adservice
-          acr: acrvg1988
   - stage: deploy
     displayName: Deploy
     jobs:
       - template: ../../pipelines/deploy-template.yaml
         parameters:
           serviceName: adservice
-          acr: acrvg1988
