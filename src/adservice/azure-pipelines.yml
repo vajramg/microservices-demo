@@ -4,7 +4,7 @@ trigger:
       - src/adservice/**
 
 variables:
-  acr: acrvg1988
+  acr: "acrvg1988"
 stages:
   - stage: build
     displayName: Build
@@ -12,11 +12,11 @@ stages:
       - template: ../../pipelines/build-template.yaml
         parameters:
           serviceName: adservice
-          acr: $(acr)
+          acr: acrvg1988
   - stage: deploy
     displayName: Deploy
     jobs:
       - template: ../../pipelines/deploy-template.yaml
         parameters:
           serviceName: adservice
-          acr: $(acr)
+          acr: acrvg1988
