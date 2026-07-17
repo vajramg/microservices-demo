@@ -4,7 +4,7 @@ trigger:
       - src/adservice/**
 
 variables:
-  acr: vg1988acr
+  acr: acrvg1988
 stages:
   - stage: build
     displayName: Build
