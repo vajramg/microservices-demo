@@ -1,22 +1,12 @@
 terraform {
+  backend "azurerm" {
+  }
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
       version = "=4.1.0"
     }
   }
-}
-
-terraform {
-  backend "azurerm" {
-    resource_group_name  = "tf-state"
-    storage_account_name = "vg1988my"
-    container_name       = "terraform"
-    key                  = "dev.terraform.tfstate"
-    use_azuread_auth     = true
-
-  }
-
 }
 
 provider "azurerm" {

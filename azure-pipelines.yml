@@ -24,7 +24,7 @@ stages:
           - task: AzureCLI@3
             inputs:
               connectionType: "azureRM"
-              azureSubscription: "az-resource"
+              azureSubscription: "mysvc-connection"
               scriptType: "bash"
               scriptLocation: "inlineScript"
               inlineScript: |
@@ -47,7 +47,7 @@ stages:
           - task: AzureCLI@3
             inputs:
               connectionType: "azureRM"
-              azureSubscription: "az-resource"
+              azureSubscription: "mysvc-connection"
               scriptType: "bash"
               scriptLocation: "inlineScript"
               inlineScript: |
@@ -67,7 +67,7 @@ stages:
           - task: AzureCLI@3
             inputs:
               connectionType: "azureRM"
-              azureSubscription: "az-resource"
+              azureSubscription: "mysvc-connection"
               scriptType: "bash"
               scriptLocation: "inlineScript"
               inlineScript: |

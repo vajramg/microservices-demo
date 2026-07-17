@@ -1,0 +1,5 @@
+resource_group_name  = "tf-state"
+    storage_account_name = "vg1988"
+    container_name       = "terraform"
+    key                  = "prod.tfstate"
+    use_azuread_auth     = true
