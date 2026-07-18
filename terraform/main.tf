@@ -18,6 +18,8 @@ module "aks" {
   source              = "./modules/aks"
   location            = var.location
   resource_group_name = var.resource_group_name
+  namespace           = var.namespace
+  environment         = var.environment
 }
 module "acr" {
   source              = "./modules/acr"
