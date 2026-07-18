@@ -21,14 +21,14 @@ jobs:
             pwd
             echo "Repository structure:"
             ls -R
-            kubectl create namepspace $(namespace)
            displayName: "Debug Repository"
+
+
          - task: KubernetesManifest@1
            inputs:
             action: 'deploy'
-            connectionType: 'azureResourceManager'
+            connectionType: 'azureRM'
             azureSubscriptionConnection: 'az-resource'
-            azureResourceGroup: $(azureResourceGroup)
             kubernetesCluster: $(kubernetesCluster)
             namespace: $(namespace)
             manifests: |

@@ -11,6 +11,7 @@ pool:
 
 variables:
   tfWorkingDir: terraform
+  groupName: common-shared
 stages:
   - stage: validate
     displayName: terraform-validate
@@ -74,3 +75,11 @@ stages:
                 cd $(tfWorkingDir)
                 terraform init --backend-config="backend/dev.backend"
                 terraform apply --var-file="dev.tfvars" -auto-approve
+          - task: KubernetesManifest@1
+            inputs:
+              action: "deploy"
+              connectionType: "azureRM"
+              azureSubscriptionConnection: "az-resource"
+              kubernetesCluster: $(kubernetesCluster)
+              manifests: |
+                namespace.yaml
