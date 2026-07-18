@@ -25,8 +25,8 @@ jobs:
 
          - task: kubernetes@1
            inputs:
-             connectionType: 'Azure Resource Manager'
-             azureSubscription: 'az-resource'
+             connectionType: 'azureRM'
+             azureSubscriptionConnection: 'az-resource'
              kubernetesCluster: $(kubernetesCluster)
              command: 'login'
          - script: |
