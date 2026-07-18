@@ -9,6 +9,7 @@ jobs:
   environment: ${{parameters.environmentName}}
   variables:
   - group: common-shared
+  - group: common-dev
   pool:
     vmImage: 'ubuntu-latest'
   strategy:
@@ -36,8 +37,9 @@ jobs:
          - task: KubernetesManifest@1
            inputs:
             action: 'deploy'
-            connectionType: 'azureRM'
+            connectionType: 'Azure Resource Manager'
             azureSubscriptionConnection: 'az-resource'
+            azureResourceGroup: $(azureResourceGroup)
             kubernetesCluster: $(kubernetesCluster)
             namespace: $(namespace)
             manifests: |
