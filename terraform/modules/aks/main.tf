@@ -43,3 +43,33 @@ output "kube_config" {
 
   sensitive = true
 }
+
+resource "kubernetes_namespace" "dev" {
+
+  metadata {
+
+    name = "dev"
+
+  }
+
+}
+
+resource "kubernetes_namespace" "dev" {
+
+  metadata {
+
+    name = "qa"
+
+  }
+
+}
+
+resource "kubernetes_namespace" "dev" {
+
+  metadata {
+
+    name = "prod"
+
+  }
+
+}
