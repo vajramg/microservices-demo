@@ -38,7 +38,7 @@ jobs:
            inputs:
             action: 'deploy'
             connectionType: 'Azure Resource Manager'
-            azureSubscriptionConnection: 'az-resource'
+            azureSubscriptionEndpoint: 'az-resource'
             azureResourceGroup: $(azureResourceGroup)
             kubernetesCluster: $(kubernetesCluster)
             namespace: $(namespace)
