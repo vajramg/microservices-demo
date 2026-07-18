@@ -23,7 +23,15 @@ jobs:
             ls -R
            displayName: "Debug Repository"
 
-
+         - task: kubernetes@1
+           inputs:
+             connectionType: 'Azure Resource Manager'
+             azureSubscription: 'az-resource'
+             kubernetesCluster: $(kubernetesCluster)
+             command: 'login'
+         - script: |
+             kubectl create namespace $(namespace) --dry-run=client -o yaml | kubectl apply -f -
+             displayName: Create Namespace
          - task: KubernetesManifest@1
            inputs:
             action: 'deploy'
