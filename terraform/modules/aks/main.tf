@@ -44,32 +44,19 @@ output "kube_config" {
   sensitive = true
 }
 
-resource "kubernetes_namespace" "prod" {
-
+resource "kubernetes_namespace_v1" "namespace" {
   metadata {
+    annotations = {
+      created-by = "terraform"
+      owner      = "vajram"
+    }
 
-    name = "dev"
-
+    labels = {
+      environment = var.environment
+    }
+    name = var.namespace
   }
-
 }
 
-resource "kubernetes_namespace" "qa" {
 
-  metadata {
 
-    name = "qa"
-
-  }
-
-}
-
-resource "kubernetes_namespace" "dev" {
-
-  metadata {
-
-    name = "prod"
-
-  }
-
-}

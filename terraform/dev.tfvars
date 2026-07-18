@@ -1,3 +1,5 @@
 subscription_id     = "b2b41ad9-4bed-425f-bc53-3f1b27d5ea13"
 location            = "westus"
 resource_group_name = "aks-rg"
+namespace           = "dev"
+environment         = "dev"
