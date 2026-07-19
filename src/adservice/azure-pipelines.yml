@@ -1,25 +1,114 @@
 trigger:
   branches:
     include:
-      - main # or develop, feature/*
-
+      - develop
+      - main
+      - release/*
   paths:
     include:
       - src/adservice/**
 
-variables:
-  acr: "acrvg1988"
+pr:
+  branches:
+    include:
+      - develop
+  paths:
+    include:
+      - src/adservice/**
+
 stages:
+  # ==================================================
+  # BUILD
+  # ==================================================
+
   - stage: build
     displayName: Build
+
+    variables:
+      - group: common-shared
+
     jobs:
       - template: ../../pipelines/build-template.yaml
         parameters:
           serviceName: adservice
-  - stage: deploy
-    displayName: Deploy
+
+  # ==================================================
+  # DEV
+  # ==================================================
+
+  - stage: deploydev
+    displayName: Deploy-DEV
+
+    dependsOn:
+      - build
+
+    condition: |
+      and(
+        succeeded(),
+        eq(variables['Build.SourceBranch'], 'refs/heads/develop')
+      )
+
+    variables:
+      - group: common-dev
+      - group: common-shared
+
     jobs:
       - template: ../../pipelines/deploy-template.yaml
         parameters:
           serviceName: adservice
           environmentName: DEV
+
+  # ==================================================
+  # QA
+  # ==================================================
+
+  - stage: deployqa
+    displayName: Deploy-QA
+
+    dependsOn:
+      - build
+
+    condition: |
+      and(
+        succeeded(),
+        startsWith(
+          variables['Build.SourceBranch'],
+          'refs/heads/release/'
+        )
+      )
+
+    variables:
+      - group: common-qa
+      - group: common-shared
+
+    jobs:
+      - template: ../../pipelines/deploy-template.yaml
+        parameters:
+          serviceName: adservice
+          environmentName: QA
+
+  # ==================================================
+  # PROD
+  # ==================================================
+
+  - stage: deployprod
+    displayName: Deploy-PROD
+
+    dependsOn:
+      - build
+
+    condition: |
+      and(
+        succeeded(),
+        eq(variables['Build.SourceBranch'], 'refs/heads/main')
+      )
+
+    variables:
+      - group: common-prod
+      - group: common-shared
+
+    jobs:
+      - template: ../../pipelines/deploy-template.yaml
+        parameters:
+          serviceName: adservice
+          environmentName: PROD
