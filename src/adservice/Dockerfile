@@ -12,9 +12,10 @@ RUN ./gradlew downloadRepos
 COPY . .
 RUN chmod +x gradlew
 RUN ./gradlew installDist
-#Run Stage testing and packing 
+#Run Stage testing and packing of this app
 FROM eclipse-temurin:25.0.2_10-jre-alpine@sha256:5fcc27581b238efbfda93da3a103f59e0b5691fe522a7ac03fe8057b0819c888
 WORKDIR /app
 COPY --from=builder /app .
 EXPOSE 9555
+#this is entrypoint for the adservice testing dockerfile
 ENTRYPOINT ["/app/build/install/hipstershop/bin/AdService"]
