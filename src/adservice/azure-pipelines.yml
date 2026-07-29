@@ -8,13 +8,7 @@ trigger:
     include:
       - src/adservice/**
 
-pr:
-  branches:
-    include:
-      - develop
-  paths:
-    include:
-      - src/adservice/**
+pr: none
 
 stages:
   # ===================================================

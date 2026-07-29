@@ -17,12 +17,9 @@ FROM eclipse-temurin:25.0.2_10-jre-alpine@sha256:5fcc27581b238efbfda93da3a103f59
 WORKDIR /app
 COPY --from=builder /app .
 EXPOSE 9555
-<<<<<<< HEAD
-<<<<<<< HEAD
 #this is entrypoint for the adservice testing dockerfile app
 =======
 #this is entrypoint yes application for the adservice testing dockerfile app
->>>>>>> develop
 =======
 #this is entrypoint for the adservice testing dockerfile latest ad application
 >>>>>>> origin/develop
