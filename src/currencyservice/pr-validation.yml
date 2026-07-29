@@ -1,0 +1,17 @@
+trigger: none
+
+pr:
+  branches:
+    include:
+      - develop
+      - release/*
+      - main
+
+  paths:
+    include:
+      - src/currencyservice/**
+
+jobs:
+- template: ../../pipelines/pr-validation-template.yaml
+  parameters:
+    serviceName: currencyservice

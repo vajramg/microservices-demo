@@ -18,8 +18,12 @@ WORKDIR /app
 COPY --from=builder /app .
 EXPOSE 9555
 <<<<<<< HEAD
+<<<<<<< HEAD
 #this is entrypoint for the adservice testing dockerfile app
 =======
 #this is entrypoint yes
 >>>>>>> develop
+=======
+#this is entrypoint for the adservice testing dockerfile latest ad application
+>>>>>>> origin/develop
 ENTRYPOINT ["/app/build/install/hipstershop/bin/AdService"]

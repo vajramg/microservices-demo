@@ -9,7 +9,6 @@ jobs:
   environment: ${{parameters.environmentName}}
   variables:
   - group: common-shared
-  - group: common-dev
   pool:
     vmImage: 'ubuntu-latest'
   strategy:
