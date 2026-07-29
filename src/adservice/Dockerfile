@@ -21,7 +21,7 @@ EXPOSE 9555
 <<<<<<< HEAD
 #this is entrypoint for the adservice testing dockerfile app
 =======
-#this is entrypoint yes application
+#this is entrypoint yes application for the adservice testing dockerfile app
 >>>>>>> develop
 =======
 #this is entrypoint for the adservice testing dockerfile latest ad application
