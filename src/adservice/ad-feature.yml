@@ -9,6 +9,6 @@ trigger:
 pr: none
 
 jobs:
-- template: feature-ci-template.yaml
+- template: ../../pipelines/feature-ci-template.yaml
   parameters:
     serviceName: adservice
