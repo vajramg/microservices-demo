@@ -1,0 +1,40 @@
+parameters:
+- name: serviceName
+  type: string
+
+jobs:
+- job: FeatureValidation
+  displayName: "Feature CI - ${{ parameters.serviceName }}"
+
+  pool:
+    vmImage: ubuntu-latest
+
+  steps:
+
+  - checkout: self
+    clean: true
+
+  - script: |
+      echo "Feature Branch CI"
+      echo "Service: ${{ parameters.serviceName }}"
+      echo "Branch : $(Build.SourceBranch)"
+    displayName: "Pipeline Information"
+
+  - task: JavaToolInstaller@0
+    inputs:
+      versionSpec: "21"
+      jdkArchitectureOption: "x64"
+      jdkSourceOption: "PreInstalled"
+
+  - script: |
+      cd src/${{ parameters.serviceName }}
+      chmod +x gradlew
+      ./gradlew clean build test
+    displayName: "Build and Unit Tests"
+
+  - task: PublishTestResults@2
+    condition: succeededOrFailed()
+    inputs:
+      testResultsFormat: JUnit
+      testResultsFiles: "**/build/test-results/test/*.xml"
+      failTaskOnFailedTests: true
