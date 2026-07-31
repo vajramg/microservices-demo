@@ -4,11 +4,11 @@ trigger:
       - feature/*
   paths:
     include:
-      - src/adservice/**
+      - src/checkoutservice/**
 
 pr: none
 
 jobs:
 - template: ../../pipelines/feature-ci-template.yaml
   parameters:
-    serviceName: adservice
+    serviceName: checkoutservice

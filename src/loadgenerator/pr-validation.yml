@@ -9,9 +9,9 @@ pr:
 
   paths:
     include:
-      - src/adservice/**
+      - src/loadgenerator/**
 
 jobs:
 - template: ../../pipelines/pr-validation-template.yaml
   parameters:
-    serviceName: adservice
+    serviceName: loadgenerator
