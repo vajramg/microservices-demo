@@ -20,22 +20,19 @@ FROM --platform=$BUILDPLATFORM node:20.20.2-alpine@sha256:fb4cd12c85ee03686f6af5
 # Some packages (e.g. @google-cloud/profiler) require additional
 # deps for post-install scripts
 RUN apk add --update --no-cache \
-  python3 \
-  make \
-  g++
-# we are adding this to check pipeline
+    python3 \
+    make \
+    g++
 
 WORKDIR /usr/src/app
 
 COPY package*.json ./
 
 RUN npm install --only=production
-RUN node -v
-RUN npm -v
-RUN ls -R node_modules/pprof || true
-RUN find node_modules -name "pprof.node"
 
-FROM node:20-bookworm
+FROM alpine:3.24.1@sha256:28bd5fe8b56d1bd048e5babf5b10710ebe0bae67db86916198a6eec434943f8b
+
+RUN apk add --no-cache nodejs
 
 WORKDIR /usr/src/app
 
@@ -44,7 +41,5 @@ COPY --from=builder /usr/src/app/node_modules ./node_modules
 COPY . .
 
 EXPOSE 7000
-
-#test
 
 ENTRYPOINT [ "node", "server.js" ]

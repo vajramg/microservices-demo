@@ -9,9 +9,9 @@ pr:
 
   paths:
     include:
-      - src/currencyservice/**
+      - src/adservice/**
 
 jobs:
 - template: ../../pipelines/pr-validation-template.yaml
   parameters:
-    serviceName: currencyservice
+    serviceName: adservice
