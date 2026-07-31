@@ -9,9 +9,9 @@ pr:
 
   paths:
     include:
-      - src/adservice/**
+      - src/shoppingassistantservice/**
 
 jobs:
 - template: ../../pipelines/pr-validation-template.yaml
   parameters:
-    serviceName: adservice
+    serviceName: shoppingassistantservice
