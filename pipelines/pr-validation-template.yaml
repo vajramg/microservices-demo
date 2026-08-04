@@ -1,0 +1,72 @@
+parameters:
+  - name: serviceName
+    type: string
+
+jobs:
+- job: PRValidation
+  displayName: "PR Validation - ${{ parameters.serviceName }}"
+
+  pool:
+    vmImage: ubuntu-latest
+
+  steps:
+
+  - checkout: self
+    clean: true
+
+  - script: |
+      echo "================================="
+      echo "Pull Request Validation"
+      echo "Service : ${{ parameters.serviceName }}"
+      echo "Branch  : $(Build.SourceBranch)"
+      echo "Reason  : $(Build.Reason)"
+      echo "================================="
+    displayName: "Pipeline Information"
+
+  # Java Setup
+  - task: JavaToolInstaller@0
+    displayName: "Install JDK 21"
+    inputs:
+      versionSpec: "21"
+      jdkArchitectureOption: "x64"
+      jdkSourceOption: "PreInstalled"
+
+  # Gradle Build
+  - script: |
+      cd src/${{ parameters.serviceName }}
+      chmod +x gradlew
+      ./gradlew clean build
+    displayName: "Gradle Build"
+
+  # Publish Unit Tests
+  - task: PublishTestResults@2
+    displayName: "Publish Test Results"
+    condition: succeededOrFailed()
+    inputs:
+      testResultsFormat: JUnit
+      testResultsFiles: |
+        **/build/test-results/test/*.xml
+      failTaskOnFailedTests: true
+
+  # Publish Code Coverage (optional for now)
+  - task: PublishCodeCoverageResults@2
+    displayName: "Publish Code Coverage"
+    condition: succeededOrFailed()
+    inputs:
+      codeCoverageTool: JaCoCo
+      summaryFileLocation: |
+        **/build/reports/jacoco/test/jacocoTestReport.xml
+
+  # Docker Build Validation
+  - task: Docker@2
+    displayName: "Docker Build Validation"
+    inputs:
+      command: build
+      Dockerfile: src/${{ parameters.serviceName }}/Dockerfile
+      repository: pr-validation/${{ parameters.serviceName }}
+      tags: |
+        $(Build.BuildId)
+
+  - script: |
+      docker images
+    displayName: "Verify Docker Image"

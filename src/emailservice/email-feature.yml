@@ -1,0 +1,14 @@
+trigger:
+  branches:
+    include:
+      - feature/*
+  paths:
+    include:
+      - src/emailservice/**
+
+pr: none
+
+jobs:
+- template: ../../pipelines/feature-ci-template.yaml
+  parameters:
+    serviceName: emailservice

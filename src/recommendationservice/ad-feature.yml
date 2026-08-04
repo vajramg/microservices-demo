@@ -1,0 +1,14 @@
+trigger:
+  branches:
+    include:
+      - feature/*
+  paths:
+    include:
+      - src/recommendationservice/**
+
+pr: none
+
+jobs:
+- template: ../../pipelines/feature-ci-template.yaml
+  parameters:
+    serviceName: recommendationservice
