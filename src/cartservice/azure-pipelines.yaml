@@ -8,14 +8,7 @@ trigger:
     include:
       - src/cartservice/**
 
-pr:
-  branches:
-    include:
-      - develop
-  paths:
-    include:
-      - src/cartservice/**
-
+pr: none
 stages:
   # ===================================================
   # BUILD
