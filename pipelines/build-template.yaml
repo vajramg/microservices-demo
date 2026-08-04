@@ -22,6 +22,7 @@ jobs:
             pwd
             ls -ltr
             docker build \
+            -f "$(dockerFilePath)" \
             -t $(acr).azurecr.io/${{ parameters.serviceName }}:$(Build.BuildId) \
             src/${{ parameters.serviceName }}
             docker push \
