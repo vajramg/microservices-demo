@@ -1,21 +1,115 @@
 trigger:
   branches:
     include:
+      - develop
+      - main
+      - release/*
+  paths:
+    include:
       - src/cartservice/**
-variables:
-  acr: vg1988acr
+
+pr:
+  branches:
+    include:
+      - develop
+  paths:
+    include:
+      - src/cartservice/**
+
 stages:
+  # ===================================================
+  # BUILD
+  # ===================================================
+
   - stage: build
     displayName: Build
+
+    variables:
+      - group: common-shared
+
     jobs:
       - template: ../../pipelines/build-template.yaml
         parameters:
           serviceName: cartservice
-          acr: vg1988acr
-  - stage: deploy
-    displayName: Build
+          dockerfilePath: src/cartservice/src/Dockerfile
+
+  # ====================================================
+  # DEV
+  # ====================================================
+
+  - stage: deploydev
+    displayName: Deploy-DEV
+
+    dependsOn:
+      - build
+
+    condition: |
+      and(
+        succeeded(),
+        eq(variables['Build.SourceBranch'], 'refs/heads/develop')
+      )
+
+    variables:
+      - group: common-dev
+      - group: common-shared
+
     jobs:
       - template: ../../pipelines/deploy-template.yaml
         parameters:
           serviceName: cartservice
-          acr: vg1988acr
+          environmentName: DEV
+
+  # ==================================================
+  # QA
+  # ==================================================
+
+  - stage: deployqa
+    displayName: Deploy-QA
+
+    dependsOn:
+      - build
+
+    condition: |
+      and(
+        succeeded(),
+        startsWith(
+          variables['Build.SourceBranch'],
+          'refs/heads/release/'
+        )
+      )
+
+    variables:
+      - group: common-qa
+      - group: common-shared
+
+    jobs:
+      - template: ../../pipelines/deploy-template.yaml
+        parameters:
+          serviceName: cartservice
+          environmentName: QA
+
+  # =================================================
+  # PROD
+  # =================================================
+
+  - stage: deployprod
+    displayName: Deploy-PROD
+
+    dependsOn:
+      - build
+
+    condition: |
+      and(
+        succeeded(),
+        eq(variables['Build.SourceBranch'], 'refs/heads/main')
+      )
+
+    variables:
+      - group: common-prod
+      - group: common-shared
+
+    jobs:
+      - template: ../../pipelines/deploy-template.yaml
+        parameters:
+          serviceName: cartservice
+          environmentName: PROD
