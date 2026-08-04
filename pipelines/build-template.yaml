@@ -1,27 +1,31 @@
 parameters:
-    - name: serviceName
-      type: string
-      
+  - name: serviceName
+    type: string
+  - name: dockerfilePath
+    type: string
+    default: "Dockerfile"
+
 jobs:
-    - job: build
-      pool:
-        vmImage: 'ubuntu-latest'
-      displayName: Build
-      variables:
+  - job: build
+    pool:
+      vmImage: "ubuntu-latest"
+    displayName: Build
+    variables:
       - group: common-shared
-      steps:
-       - task: AzureCLI@3
-         inputs:
-           connectionType: 'azureRM'
-           azureSubscription: 'az-resource'
-           scriptType: 'bash'
-           scriptLocation: 'inlineScript'
-           inlineScript: |
+    steps:
+      - task: AzureCLI@3
+        inputs:
+          connectionType: "azureRM"
+          azureSubscription: "az-resource"
+          scriptType: "bash"
+          scriptLocation: "inlineScript"
+          inlineScript: |
             az acr login --name $(acr)
 
             pwd
             ls -ltr
             docker build \
+            -f "${{ parameters.dockerfilePath }" \
             -t $(acr).azurecr.io/${{ parameters.serviceName }}:$(Build.BuildId) \
             src/${{ parameters.serviceName }}
             docker push \

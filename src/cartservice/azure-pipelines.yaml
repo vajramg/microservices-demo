@@ -8,7 +8,13 @@ trigger:
     include:
       - src/cartservice/**
 
-pr: none
+pr:
+  branches:
+    include:
+      - develop
+  paths:
+    include:
+      - src/cartservice/**
 
 stages:
   # ===================================================
@@ -25,6 +31,7 @@ stages:
       - template: ../../pipelines/build-template.yaml
         parameters:
           serviceName: cartservice
+          dockerfilePath: src/cartservice/src/Dockerfile
 
   # ====================================================
   # DEV

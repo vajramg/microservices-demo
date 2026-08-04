@@ -25,6 +25,7 @@ stages:
       - template: ../../pipelines/build-template.yaml
         parameters:
           serviceName: adservice
+          dockerfilePath: src/adservice/Dockerfile
 
   # ====================================================
   # DEV

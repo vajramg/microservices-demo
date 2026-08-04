@@ -35,6 +35,7 @@ RUN dotnet publish cartservice.csproj \
 # https://mcr.microsoft.com/product/dotnet/runtime-deps
 FROM mcr.microsoft.com/dotnet/runtime-deps:10.0.0-noble-chiseled@sha256:b857c8cb8d929183cfe4c6dd9994abba92a2639dd2dbaf06005379f815991604
 
+#testing
 WORKDIR /app
 COPY --from=builder /cartservice .
 EXPOSE 7070
