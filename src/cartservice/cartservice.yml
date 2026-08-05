@@ -9,7 +9,6 @@ trigger:
       - src/cartservice/**
 
 pr: none
-
 stages:
   # ===================================================
   # BUILD
@@ -25,6 +24,7 @@ stages:
       - template: ../../pipelines/build-template.yaml
         parameters:
           serviceName: cartservice
+          dockerfilePath: src/cartservice/src/Dockerfile
 
   # ====================================================
   # DEV

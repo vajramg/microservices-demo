@@ -1,12 +1,15 @@
-trigger:
+trigger: none
+
+pr:
   branches:
     include:
-      - feature/*
+      - develop
+      - release/*
+      - main
+
   paths:
     include:
       - src/cartservice/**
-
-pr: none
 
 jobs:
 - template: ../../pipelines/feature-ci-template.yaml
