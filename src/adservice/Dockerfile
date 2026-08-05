@@ -39,7 +39,7 @@ FROM eclipse-temurin:25.0.3_9-jre-alpine@sha256:28db6fdf60e38945e43d840c0333aeae
 
 WORKDIR /app
 COPY --from=builder /app .
-#added for testing
+#added for testing micro service app
 
 EXPOSE 9555
 ENTRYPOINT ["/app/build/install/hipstershop/bin/AdService"]
