@@ -12,6 +12,6 @@ pr:
       - src/cartservice/**
 
 jobs:
-- template: ../../pipelines/pr-validation-template.yaml
+- template: ../../pipelines/feature-ci-template.yaml
   parameters:
     serviceName: cartservice
